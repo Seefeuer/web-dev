@@ -8,7 +8,7 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password_again passwo
 add-apt-repository ppa:ondrej/php
 apt-get update -y -q
 apt-get install -y -q make git libssl-dev zip unzip
-apt-get install -y -q apache2 mysql-server php php-zip php-mysql php-xml composer libapache2-mod-php
+apt-get install -y -q apache2 mysql-server php php-zip php-mysql php-xml composer libapache2-mod-php phpmyadmin
 a2enmod rewrite
 echo "<Directory /var/www/html>" >> /etc/apache2/sites-available/000-default.conf
 echo "    Options Indexes FollowSymLinks" >> /etc/apache2/sites-available/000-default.conf
