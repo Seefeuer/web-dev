@@ -19,10 +19,11 @@ service apache2 restart
 addgroup vagrant www-data
 SCRIPT
 Vagrant.configure("2") do |config|
-#  config.vm.box = "ubuntu/xenial64"
   config.vm.box = "ubuntu/bionic64"
   config.vm.box_check_update = true
   config.ssh.forward_agent = true
   config.vm.network "forwarded_port", guest: 80, host: 2080
   config.vm.provision "shell", inline: $script
+  config.memory = 4096
+  config.cpus = 2
 end

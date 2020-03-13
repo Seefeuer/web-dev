@@ -37,7 +37,6 @@ Using Windows and being and administrative user, open a terminal and run:
 vagrant halt
 ````
 
-
 ## Start after reboot
 Using Linux, open a terminal in this folder and run:
 ````
@@ -48,3 +47,32 @@ Using Windows and being and administrative user, open a terminal and run:
 vagrant up
 ````
 
+## Package Content
+
+This virtual server includes:
+
+- Apache web server
+- MySQL database server
+- PHP 7.4
+- PhpMyAdmin
+
+### Usage
+
+Open a browser and point to <code>localhost:2080</code>.
+
+You will find the PhpMyAdmin on <code>localhost:2080/phpmyadmin</code>.
+Create some users for your web applications, like <code>wordpress</code> or <code>developer</code>.
+Set rights for each new user.
+
+Now, place a fresh web application installation into this folder.
+Configure the installation to make use of the database.
+Open your web application on <code>localhost:2080/MyWebApp</code>.
+
+## Configuration
+
+If you are running Windows without any other web server, you could have the virtual web server listing to port 80 instead of 2080.
+To configure this, modify the Vagrantfile by replacing port 2080 by 80.
+
+Furthermore, you can adjust the number of CPUs and memory (in MB) in the Vagrantfile.
+
+*Attention:* You will need to restart the virtualisation after changes in the Vagrantfile
