@@ -54,15 +54,32 @@ This virtual server includes:
 - Apache web server
 - MySQL database server
 - PHP 7.4
-- PhpMyAdmin
+- PHP extensions
+  - CURL
+  - IMAP
+  - ZIP
+  - XML
+  - Imagick
 
 ### Usage
 
-Open a browser and point to <code>localhost:2080</code>.
+#### Database Access
 
-You will find the PhpMyAdmin on <code>localhost:2080/phpmyadmin</code>.
+Download [MySQL Workbench for Windows][1] or HeidiSQL to manage the virtual database.
+
+Connection:
+
+- Host: localhost OR 127.0.0.1
+- Port: 3307
+- User: root OR vagrant
+- Pass: root OR vagrant
+
 Create some users for your web applications, like <code>wordpress</code> or <code>developer</code>.
 Set rights for each new user.
+
+#### Web Server
+
+Open a browser and point to <code>localhost:2080</code>.
 
 Now, place a fresh web application installation into this folder.
 Configure the installation to make use of the database.
@@ -76,3 +93,7 @@ To configure this, modify the Vagrantfile by replacing port 2080 by 80.
 Furthermore, you can adjust the number of CPUs and memory (in MB) in the Vagrantfile.
 
 *Attention:* You will need to restart the virtualisation after changes in the Vagrantfile
+
+----
+
+[1]: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.19-winx64.msi
