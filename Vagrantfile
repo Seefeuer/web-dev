@@ -9,14 +9,14 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password password roo
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
 add-apt-repository ppa:ondrej/php
 apt-get update -y
-apt-get install -y make git libssl-dev zip unzip
+apt-get install -y make git libssl-dev zip unzip htop iptables
 apt-get install -y apache2 mysql-server php composer libapache2-mod-php
-apt-get install -y php-zip php-mysql php-xml php-curl php-imagick php-imap
+apt-get install -y php-zip php-mysql php-xml php-curl php-imagick php-imap php-mbstring
 sed -i "s/bind-address/#bind-address/" /etc/mysql/mysql.conf.d/mysqld.cnf
 mysql -uroot -proot --execute="CREATE USER 'root'@'%' IDENTIFIED BY 'root';"
 mysql -uroot -proot --execute="CREATE USER 'vagrant'@'%' IDENTIFIED BY 'vagrant';"
-mysql -uroot -proot --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'%'"
-mysql -uroot -proot --execute="GRANT ALL PRIVILEGES ON * . * TO 'vagrant'@'%'"
+mysql -uroot -proot --execute="GRANT ALL PRIVILEGES ON * . * TO 'root'@'%' WITH GRANT OPTION;"
+mysql -uroot -proot --execute="GRANT ALL PRIVILEGES ON * . * TO 'vagrant'@'%' WITH GRANT OPTION;"
 mysql -uroot -proot --execute="FLUSH PRIVILEGES;"
 a2enmod rewrite
 echo "<Directory /var/www/html>" >> /etc/apache2/sites-available/000-default.conf
@@ -27,6 +27,9 @@ echo "</Directory>" >> /etc/apache2/sites-available/000-default.conf
 service apache2 restart
 service mysql restart
 addgroup vagrant www-data
+echo "1" > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A PREROUTING -s 127.0.0.1 -p tcp --dport 2080 -j REDIRECT --to 80
+iptables -t nat -A OUTPUT -s 127.0.0.1 -p tcp --dport 2080 -j REDIRECT --to 80
 SCRIPT
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
