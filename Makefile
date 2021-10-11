@@ -48,3 +48,7 @@ virtualbox-status:
 	@vboxmanage showvminfo Debian_Base --machinereadable | grep VMState= | sed "s/VMState=//" | sed 's/"//g'
 
 
+##  DATABASE
+sql-dump-all-databases:
+    @mysqldump -uvagrant -pvagrant --all-databases > all_database_`date +'%Y-%m-%d'`.sql
+
